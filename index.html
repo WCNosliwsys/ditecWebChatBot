@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Reservas MI NEGOCIO</title>
+    <link rel="stylesheet" href="css/estilos.css" />
+    <script src="js/form.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA5oMYepHbiIGmevctMYSiHYkWxdB4Dn6g&libraries=places"></script>
+
+  </head>
+  <body>
+    <form action="" class="formulario">
+      <img src="logo.jpg" class="imgLogo" />
+
+      <h1 class="formulario__titulo">SOLICITUD DE SERVICIO DE TAXI</h1>
+      <h3 class="formulario__subtitulo" id="telefono">Numero</h3>
+ 
+      <label for="nombre" class="formulario__label">¿Cuál es tu nombre?</label>
+      <input
+        id="nombre"
+        type="text"
+        class="formulario__input"
+        placeholder="Indica cuál es tu nombre completo"
+      />
+      <label for="direccion" class="formulario__label">¿Cuál es tu dirección?</label>
+      <input
+        id="direccion"
+        type="text"
+        class="formulario__input"
+        placeholder="Indica cuál es tu nombre completo"
+      />
+      <label for="referencia" class="formulario__label">¿Puede indicarnos una referencia?</label>
+      <input
+        id="referencia"
+        type="text"
+        class="formulario__input"
+        placeholder="Indica cuál es tu nombre completo"
+      />
+
+
+      <label for="servicio" class="formulario__label"
+        >¿Cuál es el servicio que se desea realizar?</label
+      >
+      <select id="servicio" name="listaservicios" class="formulario__input">
+        <option>SERVICIO 1 - $VALOR</option>
+        <option>SERVICIO 2 - $VALOR</option>
+        <option>SERVICIO 3 - $VALOR</option>
+        <option>SERVICIO 4 - $VALOR</option>
+        <option>SERVICIO 5 - $VALOR</option>
+      </select>
+      <label for="servicio" class="formulario__label"
+        >Antes de enviar el servicio por favor haga un clic en el mapa que aparecerá en la parte inferior del formulario</label
+      >
+      <label for="servicio" class="formulario__label" id="coordenada"
+      >HAGA CLIC EN EL MAPA Y AQUI PONDREMOS SU COORDENADA</label
+    >
+      <div id="respuesta"></div>
+
+      <button id="submit" class="formulario__submit">Enviar SOLICITUD</button>
+    </form>
+    <div style="min-width: 60%; height: 510px; margin-top: 5px; " id="googleMap">
+    
+    </div>  
+  </body>
+</html>
