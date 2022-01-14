@@ -43,6 +43,7 @@ window.addEventListener("load",function(){
     data.price='';
     data.to="";
     data.exactprice="";
+    data.user='WHATSAPP'
 
     console.log(data);
 
