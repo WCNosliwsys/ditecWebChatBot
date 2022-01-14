@@ -7,7 +7,7 @@ let ubicacion;
 let milatlng;
 window.addEventListener("load",function(){
   ubicacion=document.getElementById("coordenada");
-  var socket = io('http://ditec.eu-4.evennode.com/users');
+  var socket = io('https://ditec.eu-4.evennode.com/users');
   socket.on('connected', function (data) {
 
     console.log('connected');
