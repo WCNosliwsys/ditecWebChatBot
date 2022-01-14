@@ -26,8 +26,8 @@ window.addEventListener("load",function(){
       resp.innerHTML = `Faltan algunos datos, ${cliente}`;
       return false;
     } */
-
-    resp.innerHTML = `Se ha enviado tu reserva, ${cliente}`;
+    resp=document.getElementById('respuesta');
+    resp.innerHTML = `Se ha enviado tu reserva, ${nombre}`;
     var data = {};
     data.latitude = milatlng.lat();
     data.longitude = milatlng.lng();;
@@ -46,8 +46,8 @@ window.addEventListener("load",function(){
 
     console.log(data);
 
-/*     socket.emit('new request',data,function(cb){
-      console.log("se ejecuto el new request");}); */
+    socket.emit('new request',data,function(cb){
+      console.log("se ejecuto el new request");});
   });
 
   console.log("probando inicio");
