@@ -70,7 +70,7 @@ window.addEventListener("load", async () => {
       socket.emit('new request', data, async (cb) =>{
         console.log("se ejecuto el new request");
         console.log(cb);
-        resp.innerHTML = `Se ha enviado tu reserva, ${nombre}`;
+        resp.innerHTML = `Se ha enviado tu solicitud de servicio de Taxi en breve le informaremos por WhatsApp cuando un conductor acepte su solicitud, ${nombre}`;
         mibody = { "phone": phone, "chatTokenPedir": "AizaWxY" };
 
         await fetch('https://ditec.eu-4.evennode.com/api/v1/request/updateToken', {
