@@ -1,0 +1,74 @@
+*{
+  margin: 0;
+  padding:0;
+}
+body{
+  height: 100vh;
+  width: 100vw;
+  font-size: 0.5rem;
+}
+#googleMap{
+  min-width: 60%; 
+  height: 62vh;
+  margin-bottom: 5px;   
+}
+header{
+  background-color: rgb(241, 214, 56);
+  color: rgb(86, 86, 58);
+  height: 8vh;
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 0.6rem;
+  text-align: center;
+}
+header img{
+  height: 100%;
+}
+#coordenada{
+  display: none;
+}
+
+label{
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+form{
+  text-align: center;
+}
+form div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+form > input{
+  width: 100%;
+  text-align: center;
+  margin: 4px 0px; 
+}
+input{
+  width: 70%;
+  padding: 3px;
+}
+button{
+  width: 70%;
+  padding: 8px;
+  font-weight: bolder;
+  font-size: 1rem;
+  margin-top: 5px;
+  color: rgb(253, 252, 255);
+  background:linear-gradient(rgb(28, 133, 28),rgb(116, 223, 116));
+}
+
+/*======= Map Styling ============*/
+.gmnoprint a, .gmnoprint span {
+  display:none;
+}
+.gmnoprint div {
+  background:none !important;
+}
+#GMapsID div div a div img{
+  display:none;
+}

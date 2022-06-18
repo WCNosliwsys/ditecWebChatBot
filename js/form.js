@@ -1,14 +1,14 @@
 var phone = '';
 var nombre = '';
 var token = '';
-let lbltelefono;
+// let lbltelefono;
 let inputNombre;
 let ubicacion;
 let milatlng;
 window.addEventListener("load", async () => {
 
   ubicacion = document.getElementById("coordenada");
-  var socket = io('https://ditec.eu-4.evennode.com/users');
+  var socket = io('https://radiotaxichiclayo.eu-4.evennode.com/users');
   socket.on('connected', function (data) {
 
     console.log('connected');
@@ -58,7 +58,7 @@ window.addEventListener("load", async () => {
     console.log(data);
     mibody = { "phone": phone };
 
-    responseCheck = await fetch('https://ditec.eu-4.evennode.com/api/v1/request/checkEnableWhatsapp', {
+    responseCheck = await fetch('https://radiotaxichiclayo.eu-4.evennode.com/api/v1/request/checkEnableWhatsapp', {
       method: 'post',
       body: JSON.stringify(mibody),
       headers: { 'Content-Type': 'application/json' }
@@ -71,13 +71,7 @@ window.addEventListener("load", async () => {
         console.log("se ejecuto el new request");
         console.log(cb);
         resp.innerHTML = `Se ha enviado tu solicitud de servicio de Taxi en breve le informaremos por WhatsApp cuando un conductor acepte su solicitud, ${nombre}`;
-        mibody = { "phone": phone, "chatTokenPedir": "AizaWxY" };
 
-        await fetch('https://ditec.eu-4.evennode.com/api/v1/request/updateToken', {
-          method: 'post',
-          body: JSON.stringify(mibody),
-          headers: { 'Content-Type': 'application/json' }
-        });
       });
   });
 
@@ -99,15 +93,15 @@ window.addEventListener("load", async () => {
   });
   inputNombre = document.getElementById("nombre");
   inputNombre.value = nombre;
-  lbltelefono = document.getElementById("telefono");
-  telefono.innerHTML = phone
+/*   lbltelefono = document.getElementById("telefono");
+  telefono.innerHTML = phone */
   console.log(phone);
   console.log(nombre);
   console.log(token);
 
   mibody = { "phone": phone };
 
-  responseCheck = await fetch('https://ditec.eu-4.evennode.com/api/v1/request/checkEnableWhatsapp', {
+/*   responseCheck = await fetch('https://radiotaxichiclayo.eu-4.evennode.com/api/v1/request/checkEnableWhatsapp', {
     method: 'post',
     body: JSON.stringify(mibody),
     headers: { 'Content-Type': 'application/json' }
@@ -118,16 +112,20 @@ window.addEventListener("load", async () => {
   else {
     mibody = { "phone": phone, "chatTokenWeb": token };
 
-    await fetch('https://ditec.eu-4.evennode.com/api/v1/request/updateToken', {
+    await fetch('https://radiotaxichiclayo.eu-4.evennode.com/api/v1/request/updateToken', {
       method: 'post',
       body: JSON.stringify(mibody),
       headers: { 'Content-Type': 'application/json' }
     });
     console.log("se actualizo el token");
-  }
+  } */
 
   // console.log('p: '+p);
   iniciarMapa();
+
+
+ 
+
 })
 
 function iniciarMapa() {
@@ -135,9 +133,11 @@ function iniciarMapa() {
     //Arequipa
     //center:new google.maps.LatLng(-16.4090474,-71.53745099999998),
     //Tacna
-    center: new google.maps.LatLng(-18.02941384681983, -70.2692299336195),
+    center: new google.maps.LatLng(-6.771648, -79.839047),
     zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
+    disableDefaultUI: true,
+    gestureHandling: "greedy"
   };
   MAP = new google.maps.Map(document.getElementById("googleMap"), mapProp);
   MAP.addListener('click', function (e) {
@@ -148,7 +148,38 @@ function iniciarMapa() {
   });
 
 
+  navigator.geolocation.getCurrentPosition(geoposOK, geoposKO);
+
+
+  function geoposOK(pos) {
+
+    var location  = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude); 
+    putmarker(location, MAP, 1);
+    
+  }
+  
+  
+  function geoposKO(err) {
+    console.warn(err.message);
+    let msg;
+    switch(err.code) {
+        case err.PERMISSION_DENIED:
+            msg = "No nos has dado permiso para obtener tu posición";
+            break;
+        case err.POSITION_UNAVAILABLE:
+            msg = "Tu posición actual no está disponible";
+            break;
+         case err.TIMEOUT:
+             msg = "No se ha podido obtener tu posición en un tiempo prudencial";
+             break;
+         default:
+             msg = "Error desconocido";
+             break;
+    }
+    console.log(msg);
+  }
 }
+
 var destino = null;
 function putmarker(latLng, map, clic) {
   if (destino != null)
@@ -173,3 +204,6 @@ function putmarker(latLng, map, clic) {
 
 
 }
+
+
+ 
