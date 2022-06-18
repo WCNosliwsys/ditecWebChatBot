@@ -37,19 +37,27 @@ label{
 
 form{
   text-align: center;
+  margin-left: 5px;
 }
 form div{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
+form div label{
+  text-align: left;
+  width: 25vw;
+}
+form input{
+  width: 75vw;
+  text-align: center;
+  margin: 2px 0px; 
+}
 form > input{
   width: 100%;
-  text-align: center;
-  margin: 4px 0px; 
 }
 input{
-  width: 70%;
   padding: 3px;
 }
 button{
@@ -60,6 +68,7 @@ button{
   margin-top: 5px;
   color: rgb(253, 252, 255);
   background:linear-gradient(rgb(28, 133, 28),rgb(116, 223, 116));
+  border-radius: 12px;
 }
 
 /*======= Map Styling ============*/
