@@ -153,11 +153,19 @@ function iniciarMapa() {
 
   function geoposOK(pos) {
 
-    var location  = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude); 
+    var location = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
     putmarker(location, MAP, 1);
-    
+    var geocoder = new google.maps.Geocoder();             // create a geocoder object
+    var location = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);    // turn coordinates into an object          
+    geocoder.geocode({ 'latLng': location }, function (results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {           // if geocode success
+        var add = results[0].formatted_address;         // if address found, pass to processing function
+        document.getElementById('direccion').value=add;
+        console.log(add);
+      }
+    });
   }
-  
+
   
   function geoposKO(err) {
     console.warn(err.message);
