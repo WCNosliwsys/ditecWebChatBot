@@ -144,7 +144,7 @@ function iniciarMapa() {
     latitude = e.latLng.lat();
     longitude = e.latLng.lng();
     putmarker(e.latLng, MAP, 1);
-    //realizaractivate();
+    Geolocalizar(e.latLng);
   });
 
 
@@ -155,10 +155,15 @@ function iniciarMapa() {
 
     var location = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
     putmarker(location, MAP, 1);
+    Geolocalizar(location);
+  }
+
+  function Geolocalizar(location){
     var geocoder = new google.maps.Geocoder();             // create a geocoder object
-    var location = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);    // turn coordinates into an object          
+    // var location = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);    // turn coordinates into an object          
     geocoder.geocode({ 'latLng': location }, function (results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {           // if geocode success
+      if (status == google.maps.GeocoderStatus.OK) {
+        console.log(results);           // if geocode success
         var add = results[0].formatted_address;         // if address found, pass to processing function
         document.getElementById('direccion').value=add;
         console.log(add);
@@ -198,18 +203,8 @@ function putmarker(latLng, map, clic) {
   });
   map.panTo(latLng);
   console.log('latlng: ' + latLng);
-  // se retira porque no es necesario que la central capture la direccion de la api de google solo la latitud y longitude y confirmar que se capturo
-
-  /*var direccion=latLng+"";
-  direccion=direccion.substring(1, direccion.length-1);
-  callWebService(direccion,clic);*/
   ubicacion.innerHTML = 'latlng: ' + latLng
   milatlng = latLng;
-  /*       if(clic==1)
-          realizaractivate();
-        else
-          evaluar(); */
-
 
 }
 

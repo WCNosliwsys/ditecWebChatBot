@@ -50,7 +50,7 @@ form div label{
   width: 25vw;
 }
 form input{
-  width: 75vw;
+  width: 75%;
   text-align: center;
   margin: 2px 0px; 
 }
@@ -80,4 +80,30 @@ button{
 }
 #GMapsID div div a div img{
   display:none;
+}
+
+@media only Screen and (min-width:700px){
+  
+  form{
+    grid-area: form;
+    margin-right: 5px;
+    margin-top: 15px;
+  }
+  form > input{
+    width: 90%;
+  }
+  #googleMap{
+    grid-area: googleMap;
+    height: 100%;
+    margin-bottom: 5px;   
+  }
+
+  main{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: 100vh;
+    grid-template-areas: 
+    "form googleMap";
+  }
+
 }
