@@ -5,6 +5,7 @@ var token = '';
 let inputNombre;
 let ubicacion;
 let milatlng;
+var destino = null;
 window.addEventListener("load", async () => {
 
   ubicacion = document.getElementById("coordenada");
@@ -141,12 +142,24 @@ function iniciarMapa() {
   };
   MAP = new google.maps.Map(document.getElementById("googleMap"), mapProp);
   MAP.addListener('click', function (e) {
+    console.log("hola123")
     latitude = e.latLng.lat();
     longitude = e.latLng.lng();
     putmarker(e.latLng, MAP, 1);
     Geolocalizar(e.latLng);
   });
 
+  destino = new google.maps.Marker({
+    position: new google.maps.LatLng(-6.771648, -79.839047),
+    map: MAP,
+    title: 'Google Maps',
+    draggable: true
+  });
+
+  google.maps.event.addListener(destino, 'dragend', function(e) {
+    Geolocalizar(e.latLng);  
+    MAP.panTo(e.latLng); 
+  });
 
   navigator.geolocation.getCurrentPosition(geoposOK, geoposKO);
 
@@ -159,16 +172,50 @@ function iniciarMapa() {
   }
 
   function Geolocalizar(location){
+
+    //geocoder de google
     var geocoder = new google.maps.Geocoder();             // create a geocoder object
     // var location = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);    // turn coordinates into an object          
     geocoder.geocode({ 'latLng': location }, function (results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        console.log(results);           // if geocode success
-        var add = results[0].formatted_address;         // if address found, pass to processing function
+      if (status == google.maps.GeocoderStatus.OK) {        // if geocode success
+        let streetAddress=-1;
+        let AdministrativeAddress=-1;
+        let sublocality_level_1=-1;
+        let route=-1       
+        for(let i=0;i<results.length;i++){
+         
+          for(let j=0;j<results[i].types.length;j++){
+            if(results[i].types[j]=='street_address')
+              streetAddress=i;
+            else if(results[i].types[j]=='administrative_area_level_3')
+              AdministrativeAddress=i;
+            else if(results[i].types[j]=='sublocality_level_1')
+              sublocality_level_1=i;
+            else if(results[i].types[j]=='route')
+              route=i;  
+          }
+        }
+        let add='';
+        if(streetAddress!=-1){
+          add = results[streetAddress].formatted_address;
+          add=add.slice(0,add.lastIndexOf(","));         
+        }else if(sublocality_level_1!=-1){
+          add = results[sublocality_level_1].formatted_address; 
+          add=add.slice(0,add.lastIndexOf(","));
+        }else if(AdministrativeAddress!=-1){
+          add = results[AdministrativeAddress].formatted_address; 
+        }else if(route!=-1){
+          add = results[route].formatted_address;
+        }else{
+          add = results[0].formatted_address;
+        }
+        add=add.slice(0,add.lastIndexOf(","));
+                // if address found, pass to processing function
         document.getElementById('direccion').value=add;
         console.log(add);
       }
     });
+
   }
 
   
@@ -193,14 +240,25 @@ function iniciarMapa() {
   }
 }
 
-var destino = null;
+
 function putmarker(latLng, map, clic) {
-  if (destino != null)
+/*   if (destino != null)
     destino.setMap(null);
   destino = new google.maps.Marker({
     position: latLng,
-    map: map
+    map: map,
+    draggable:true,
+  }); */
+  // var latlng =  new  google.maps .LatLng( 40.748774 , - 73.985763 );
+  destino.setPosition(latLng);
+/*   map.addListener(destino, 'dragend', function(e) {
+    console.log(e);
+    Geolocalizar(e.latLng);
   });
+  map.addListener(destino,'drag',function(event) {
+    console.log(event.latLng.lat());
+    console.log(event.latLng.lng());
+  }); */
   map.panTo(latLng);
   console.log('latlng: ' + latLng);
   ubicacion.innerHTML = 'latlng: ' + latLng
