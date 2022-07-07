@@ -1,6 +1,7 @@
 var phone = '';
 var nombre = '';
 var token = '';
+const urlServer="ditec";
 // let lbltelefono;
 let inputNombre;
 let ubicacion;
@@ -9,7 +10,7 @@ var destino = null;
 window.addEventListener("load", async () => {
 
   ubicacion = document.getElementById("coordenada");
-  var socket = io('https://radiotaxichiclayo.eu-4.evennode.com/users');
+  var socket = io(`https://${urlServer}.eu-4.evennode.com/users`);
   socket.on('connected', function (data) {
 
     console.log('connected');
@@ -59,7 +60,7 @@ window.addEventListener("load", async () => {
     console.log(data);
     mibody = { "phone": phone };
 
-    responseCheck = await fetch('https://radiotaxichiclayo.eu-4.evennode.com/api/v1/request/checkEnableWhatsapp', {
+    responseCheck = await fetch(`https://${urlServer}.eu-4.evennode.com/api/v1/request/checkEnableWhatsapp`, {
       method: 'post',
       body: JSON.stringify(mibody),
       headers: { 'Content-Type': 'application/json' }
@@ -102,7 +103,7 @@ window.addEventListener("load", async () => {
 
   mibody = { "phone": phone };
 
-/*   responseCheck = await fetch('https://radiotaxichiclayo.eu-4.evennode.com/api/v1/request/checkEnableWhatsapp', {
+  responseCheck = await fetch(`https://${urlServer}.eu-4.evennode.com/api/v1/request/checkEnableWhatsapp`, {
     method: 'post',
     body: JSON.stringify(mibody),
     headers: { 'Content-Type': 'application/json' }
@@ -113,13 +114,13 @@ window.addEventListener("load", async () => {
   else {
     mibody = { "phone": phone, "chatTokenWeb": token };
 
-    await fetch('https://radiotaxichiclayo.eu-4.evennode.com/api/v1/request/updateToken', {
+    await fetch(`https://${urlServer}.eu-4.evennode.com/api/v1/request/updateToken`, {
       method: 'post',
       body: JSON.stringify(mibody),
       headers: { 'Content-Type': 'application/json' }
     });
     console.log("se actualizo el token");
-  } */
+  }
 
   // console.log('p: '+p);
   iniciarMapa();
